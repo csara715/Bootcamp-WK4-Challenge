@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Code Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>✨JavaScript Code Quiz✨</h1>
+        <h2>It's time to test our JavaScript knowledge!!!</h2>
+        <p>You have 60 seconds to finish this 5 question quiz.
+            Please keep in mind that each wrong answer will result in 5 seconds
+            taken off the timer. Good luck and have fun!
+        </p>
+    </header>
+    <main>
+        <section>
+            <form method="select" id="quiz">
+               
+            <h3 id="question"></h3>
+            <ul>
+                <input type="hidden" name="answer" value=1><li id="answer-one"></li>
+                <input type="hidden" name="answer" value=2><li id="answer-two"></li>
+                <input type="hidden" name="answer" value=3><li id="answer-three"></li>
+                <input type="hidden" name="answer" value=4><li id="answer-four"></li>
+            </ul>
+            <button class="btn" id="submit-answer" type="submit">YOU GOT THIS!!!</button>
+            </form> 
+            <div><p id="result-message" class="p"></p></div>        
+        </section>
+        <button id="start-quiz">Start Quiz</button>
+    </main>
+    <footer>
+        <h3>Seconds Remaining: <span id="time-remaining">60</span></h3>
+        <div>
+            <h3><u>Recent Scores</u></h3>
+            <ul>
+            </ul>
+        </div>
+    </footer>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
