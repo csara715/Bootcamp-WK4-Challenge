@@ -20,17 +20,15 @@ section {
     display: block;
     border: 5px solid darkblue;
     align-content: center;
-    margin-left: 300px;
-    margin-right: 300px;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin: auto;
+    max-width: 500px;
     padding: 20px;
 }
 
 input {
     display: inline-flex;
     flex-wrap: wrap;
-    margin-left: 35%;
+    margin-left: 25%;
 }
 
 li {
@@ -39,8 +37,8 @@ li {
     color: darkblue;
     margin-top: -20px;
     margin-bottom: 20px;
-    margin-left: 40%;
-    margin-right: 40%
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
 
@@ -49,26 +47,27 @@ p {
     flex-wrap: wrap;
     text-align: center;
     margin-top: 15px;
-    margin-left: 350px;
-    margin-right: 350px;
+    margin: auto;
+    max-width: 500px;
     color: darkblue;
 }
 
 button {
-    justify-content: center;
-    background-color: darkblue;
-    color: lightcyan;
-    cursor: pointer;
-    font-size: 15px;
-    text-align: center;
-    max-width: 500px;
-    padding: 5px;
-    border-radius: 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 48%;
-    margin-right: 47%;
-}
+  display: block;
+  align-content: center;
+  margin: auto;
+  max-width: 500px;
+  padding: 5px;
+  background-color: darkblue;
+  color: lightcyan;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+  min-width: 150px;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+} 
 
 .btn {
     justify-content: center;
@@ -76,20 +75,21 @@ button {
     color: lightcyan;
     cursor: pointer;
     font-size: 15px;
+    position: center;
     text-align: center;
+    min-width: 150px;
     max-width: 500px;
     padding: 5px;
     border-radius: 8px;
     margin-top: 20px;
-    margin-left: 45%;
-    margin-right: 44%;
 }
 
 .p {
     text-align: center;
     color: darkblue;
-    margin-left: 45%;
-    margin-right: 44%;
+    max-width: 500px;
+    margin-left: 40%;
+    margin-right: 40%;
 }
 
 @media screen and (max-width: 1200px) {

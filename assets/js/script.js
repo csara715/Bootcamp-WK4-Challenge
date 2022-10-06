@@ -170,29 +170,30 @@ function correctMessage() {
 }
 
 
-// function getInitial() {
-//   initial = window.prompt("What are your initials?");
-//   localStorage.setItem("testTaker", JSON.stringify(initial));
-//   testTaker.push(initial);
-//   console.log(initial);
-// }
+function getInitial() {
+   initial = window.prompt("What are your initials?");
+   var initialsList = JSON.parse(localStorage.getItem("testTaker"));
+   initialsList.push(initial);
+   localStorage.setItem("testTaker", JSON.stringify(initialsList));
+  }
 
-// function getScore() {
-//   localStorage.setItem("testScore", correctCounter);
-//   console.log(correctCounter);
-// }
+function getScore() {
+  var scoresList = JSON.parse(localStorage.getItem("testScore"));
+  scoresList.push(correctCounter);
+  localStorage.setItem("testScore", JSON.stringify(initialsList));
+}
 
-// function scoreList() {
-//   var storedScores = localStorage.getItem("testScore");
-//   var storedInitials = JSON.parse(localStorage.getItem("testTaker"));
-//   if (storedInitials !== null) {
-//     initial = storedInitials;
-//   }
-//   for (j = 0; j < storedScores.length; j++) {
-//   console.log(storedScores[j]);
-//   console.log(initial);
-//   }
-// }
+function scoreList() {
+   var storedScores = JSON.parse(localStorage.getItem("testScore"));
+   var storedInitials = JSON.parse(localStorage.getItem("testTaker"));
+   
+   for (j = 0; j < storedScores.length; j++) {
+    var highScoreList = document.querySelector("#high-scores");
+    var highScore = document.createElement("li")
+    highScore.textContent = storedInitials[j] + ": " + storedScores[j];
+    highScoreList.appendChild(highScore);
+   }
+ }
 
 function quizFinish() {
   buttonEl.disabled = false;
@@ -204,9 +205,9 @@ function quizFinish() {
   inputEl[2].setAttribute("type", "hidden");
   inputEl[3].setAttribute("type", "hidden");
   finishButton();
-  // getInitial();
-  // getScore();
-  // scoreList();
+  getInitial();
+  getScore();
+  scoreList();
   questNum = 0;
   index = 0;
 }
