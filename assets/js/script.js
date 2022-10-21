@@ -2,6 +2,7 @@ var buttonEl = document.querySelector("#start-quiz");
 var submitBtn = document.querySelector("#submit-answer");
 var inputEl = document.querySelectorAll("input");
 var scriptEl = document.querySelector("#new-script");
+var highScoreList = document.querySelector("#recent-scores");
 
 var questEl = document.querySelector("#question");
 var answer1 = document.querySelector("#answer-one");
@@ -11,13 +12,15 @@ var answer4 = document.querySelector("#answer-four");
 var timerEl = document.querySelector("#time-remaining");
 var message = document.querySelector("#result-message");
 
-var correctCounter = 0;
+var correctCounter;
 var questNum = 0;
 var userAnswer;
+var index = 0;
 var timer;
 var timeRemaining;
-var testTaker = [];
-var testScore = [];
+var testTakers = [];
+var testScores = [];
+var testScore;
 var initial;
 
 var questArr = [
@@ -71,7 +74,6 @@ var questArr = [
 
 function init() {
   submitBtn.disabled = true;
-  message.textContent = "";
 }
 
 function startQuiz(event) {
@@ -80,20 +82,23 @@ function startQuiz(event) {
   generateQuest(questNum);
   questNum++;
   buttonEl.disabled = true;
+  message.textContent = "";
+  timeRemaining = 30;
   correctCounter = 0;
-  var index = 0;
+  testScore = 0;
+  initial = "";
 }
 
 function startTimer() {
-  timeRemaining = 60;
   timer = setInterval(function () {
     timeRemaining--;
     timerEl.textContent = timeRemaining;
-    var num = questNum + 1;
-
-    if (timeRemaining === 0 || num === questArr.length) {
+    
+    if ((timeRemaining === 0) || (index === questArr.length)) {
       clearInterval(timer);
+      quizFinish();
     }
+
   }, 1000);
 }
 
@@ -103,8 +108,9 @@ function submitButton() {
 }
 
 function finishButton() {
+  score();
   submitBtn.textContent =
-    "The quiz is finished and your score is " + correctCounter + "!";
+    "The quiz is finished and your score is " + testScore + "!";
 }
 
 function changeInput() {
@@ -141,7 +147,6 @@ function clearQuest() {
   message.textContent = "Please click the start quiz button to try again!";
 }
 
-var index = 0;
 function checkAns(index) {
   var userSelected = document.getElementsByName("answer");
 
@@ -156,9 +161,13 @@ function checkAns(index) {
       correctMessage();
     } else {
       incorrectMessage();
+      if(timeRemaining > 5) {
       timeRemaining = timeRemaining - 5;
+      } else {
+        timeRemaining -= timeRemaining;
     }
   }
+}
 }
 
 function incorrectMessage() {
@@ -169,28 +178,42 @@ function correctMessage() {
   message.textContent = "That is correct!";
 }
 
-
-function getInitial() {
-   initial = window.prompt("What are your initials?");
-   var initialsList = JSON.parse(localStorage.getItem("testTaker"));
-   initialsList.push(initial);
-   localStorage.setItem("testTaker", JSON.stringify(initialsList));
+function score() {
+  if (correctCounter > 0) {
+  console.log(correctCounter);
+  testScore = (correctCounter * 2) + (timeRemaining/5);
+  } else {
+    testScore = 0;
   }
+}
 
-function getScore() {
-  var scoresList = JSON.parse(localStorage.getItem("testScore"));
-  scoresList.push(correctCounter);
-  localStorage.setItem("testScore", JSON.stringify(initialsList));
+function storeInitial() {
+   initial = window.prompt("The quiz is over, please enter your initials to save your score.");
+   if (initial === null) {
+    initial = window.prompt("Please enter valid initials.")
+   } else {
+   testTakers.push(initial);
+   localStorage.setItem("testTakers", JSON.stringify(testTakers));
+   initial = "";
+   }
+}
+
+function storeScore() {
+  testScores.push(testScore);
+  localStorage.setItem("testScores", JSON.stringify(testScores));
+  testScore = 0;
 }
 
 function scoreList() {
-   var storedScores = JSON.parse(localStorage.getItem("testScore"));
-   var storedInitials = JSON.parse(localStorage.getItem("testTaker"));
+
+   var storedScores = JSON.parse(localStorage.getItem("testScores"));
+   var storedInitials = JSON.parse(localStorage.getItem("testTakers"));
+   highScoreList.innerHTML = "";
    
    for (j = 0; j < storedScores.length; j++) {
-    var highScoreList = document.querySelector("#high-scores");
     var highScore = document.createElement("li")
-    highScore.textContent = storedInitials[j] + ": " + storedScores[j];
+    highScore.setAttribute("style", "display: block; font-weight: bold; text-align: center; margin-top: 1px; margin-bottom: 0")
+    highScore.textContent = storedInitials[j].toUpperCase() + ": " + storedScores[j];
     highScoreList.appendChild(highScore);
    }
  }
@@ -205,8 +228,8 @@ function quizFinish() {
   inputEl[2].setAttribute("type", "hidden");
   inputEl[3].setAttribute("type", "hidden");
   finishButton();
-  getInitial();
-  getScore();
+  storeInitial();
+  storeScore();
   scoreList();
   questNum = 0;
   index = 0;
@@ -216,18 +239,15 @@ function quizFinish() {
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   
-  if (index < questArr.length) {
+  if (index <= questArr.length) {
     checkAns(index);
-    index++;
   }
-  if (timeRemaining > 0) {
-    if (questNum < questArr.length){
+  if ((timeRemaining > 0) && (questNum < questArr.length)) {
     generateQuest(questNum);
-    questNum++
-    } else {
-      quizFinish();
+    questNum++;
     }
-  }
+
+  index++;  
   clearChecked();
 });
 

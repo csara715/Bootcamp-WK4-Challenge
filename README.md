@@ -4,7 +4,7 @@
 
 ```
 AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+I WANT to take a timed quiz on JavaScript fundamentals that stores recent scores
 SO THAT I can gauge my progress compared to my peers
 ```
 
