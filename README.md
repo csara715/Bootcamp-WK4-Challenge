@@ -32,8 +32,4 @@ THEN the quiz will allow me to try again
 
 ![code quiz demo](./assets/images/codeQuiz.png)
 
-- https://csara715.github.io/Bootcamp-WK4-Challenge/
-
----
-
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+- https://csara715.github.io/Bootcamp-WK4-Challenge-Code-Quiz/
